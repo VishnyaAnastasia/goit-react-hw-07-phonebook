@@ -1,10 +1,10 @@
 import styles from './Filter.module.css';
 import { useDispatch } from 'react-redux';
-import { getFilter } from 'redux/filter/filter-selectors';
+import { selectFilter } from 'redux/filter/filter-selectors';
 import { filterContacts } from 'redux/filter/filterSlice';
 
 export const Filter = () => {
-  const dispatch = useDispatch(getFilter);
+  const dispatch = useDispatch(selectFilter);
 
   return (
     <label>

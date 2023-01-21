@@ -1,9 +1,8 @@
-import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contacts/contactsSlice';
-import { getContacts } from 'redux/contacts/contacts-selectors';
+import { addContact } from 'redux/contacts/contacts-operations';
+import { selectContacts } from 'redux/contacts/contacts-selectors';
 
 import styles from './Phonebook.module.css';
 
@@ -16,12 +15,13 @@ Notify.init({
   clickToClose: true,
 });
 
-export const Phonebook = () => {
+export const Phonebook = ({ id }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch(getContacts);
-  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(selectContacts);
 
   const inputHandler = event => {
     if (event.target.name === 'name') {
@@ -44,7 +44,6 @@ export const Phonebook = () => {
       return;
     }
 
-    const id = nanoid();
     const newContact = { id: id, name: name, number: number };
 
     dispatch(addContact(newContact));
